@@ -35,3 +35,18 @@
 
 (deftest test-status-empty
   (is (= :empty (status empty-board))))
+
+(deftest test-status-ongoing
+  (is (= :ongoing (-> empty-board
+                      (move 0 0)
+                      status)))
+
+  (is (= :ongoing (-> empty-board
+                      (move 0 0)
+                      (move 0 1)
+                      (move 0 2)
+                      status)))
+
+  (is (= :ongoing (status [[:X :X :_]
+                           [:O :O :_]
+                           [:X :O :_]]))))

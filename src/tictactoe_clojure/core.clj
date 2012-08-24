@@ -17,4 +17,6 @@
   (update-in board [row column] (fn [_] (next-mover board))))
 
 (defn status [board]
-  :empty)
+  (cond
+    (= 9 (count-in board :_)) :empty
+    :else :ongoing))
