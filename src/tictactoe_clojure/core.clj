@@ -4,9 +4,12 @@
                   [:_ :_ :_]
                   [:_ :_ :_]])
 
+(defn- count-in [board item]
+  (count (filter #(= item %) (flatten board))))
+
 (defn- next-mover [board]
-  (if (> (count (filter #(= :X %) (flatten board)))
-         (count (filter #(= :O %) (flatten board))))
+  (if (> (count-in board :X)
+         (count-in board :O))
     :O
     :X))
 
