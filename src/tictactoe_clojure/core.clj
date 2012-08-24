@@ -6,19 +6,12 @@
   "Like the built-in convenience functions first & second."
   [coll] (get coll 2))
 
-(defn- equal-to
-  "Returns a predicate that checks any argument is equal to x.
-
-   ie. Captures an equality test."
-  [x]
-  (fn [y] (= x y)))
-
 (defn- count-in
   "Counts the occurances of item in a collection. Includes any nested occurances."
   [item coll]
   (->> coll
        flatten
-       (filter (equal-to item))
+       (filter #(= item %))
        count))
 
 (defn- count-is [value item coll]
