@@ -21,6 +21,15 @@
       (= 3 (count-in (map second board) player))
       (= 3 (count-in (map third  board) player))))
 
+(defn- diagonal-win [board player]
+  (or
+    (= 3 (count-in [(get-in board [0 0])
+                    (get-in board [1 1])
+                    (get-in board [2 2])] player))
+    (= 3 (count-in [(get-in board [0 2])
+                    (get-in board [1 1])
+                    (get-in board [2 0])] player))))
+
 ; Public
 
 (def empty-board [[:_ :_ :_]
@@ -36,7 +45,9 @@
         (or (horizontal-win board :X)
             (horizontal-win board :O)
             (vertical-win board :X)
-            (vertical-win board :O)) :win
+            (vertical-win board :O)
+            (diagonal-win board :X)
+            (diagonal-win board :O)) :win
 
         (= 0 (count-in board :_)) :draw
 

@@ -73,3 +73,12 @@
   (is (= :win (status [[:X :X :X]
                        [:O :O :_]
                        [:_ :_ :_]]))))
+
+(deftest test-status-win-diagonal
+  (is (= :win (status [[:X :O :_]
+                       [:_ :X :O]
+                       [:_ :_ :X]])))
+
+  (is (= :win (status [[:X :_ :O]
+                       [:_ :O :X]
+                       [:O :X :_]]))))
