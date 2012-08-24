@@ -55,3 +55,12 @@
   (is (= :draw (status [[:X :X :O]
                         [:O :X :X]
                         [:X :O :O]]))))
+
+(deftest test-status-win-horizontal
+  (is (= :win (status [[:O :O :_]
+                       [:X :X :X]
+                       [:_ :_ :_]])))
+
+  (is (= :win (status [[:O :O :_]
+                       [:_ :_ :_]
+                       [:X :X :X]]))))

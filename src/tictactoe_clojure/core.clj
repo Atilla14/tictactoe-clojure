@@ -16,8 +16,17 @@
 (defn move [board row column]
   (update-in board [row column] (fn [_] (next-mover board))))
 
+(defn- horizontal-win [board player]
+  (or (= 3 (count-in (get board 0) player))
+      (= 3 (count-in (get board 1) player))
+      (= 3 (count-in (get board 2) player))))
+
 (defn status [board]
-  (cond
-    (= 9 (count-in board :_)) :empty
-    (= 0 (count-in board :_)) :draw
-    :else :ongoing))
+  (cond (= 9 (count-in board :_)) :empty
+
+        (or (horizontal-win board :X)
+            (horizontal-win board :O)) :win
+
+        (= 0 (count-in board :_)) :draw
+
+        :else :ongoing))
