@@ -9,26 +9,28 @@
     :O
     :X))
 
+(defn- any-equal [value coll]
+  (some #(= value %) coll))
+
 (defn- horizontal-win [board player]
-  (or (= 3 (count-in (get board 0) player))
-      (= 3 (count-in (get board 1) player))
-      (= 3 (count-in (get board 2) player))))
+  (any-equal 3 [(count-in (get board 0) player)
+                (count-in (get board 1) player)
+                (count-in (get board 2) player)]))
 
 (defn- third [coll] (get coll 2))
 
 (defn- vertical-win [board player]
-  (or (= 3 (count-in (map first  board) player))
-      (= 3 (count-in (map second board) player))
-      (= 3 (count-in (map third  board) player))))
+  (any-equal 3 [(count-in (map first  board) player)
+                (count-in (map second board) player)
+                (count-in (map third  board) player)]))
 
 (defn- diagonal-win [board player]
-  (or
-    (= 3 (count-in [(get-in board [0 0])
-                    (get-in board [1 1])
-                    (get-in board [2 2])] player))
-    (= 3 (count-in [(get-in board [0 2])
-                    (get-in board [1 1])
-                    (get-in board [2 0])] player))))
+  (any-equal 3 [(count-in [(get-in board [0 0])
+                           (get-in board [1 1])
+                           (get-in board [2 2])] player)
+                (count-in [(get-in board [0 2])
+                           (get-in board [1 1])
+                           (get-in board [2 0])] player)]))
 
 ; Public
 
