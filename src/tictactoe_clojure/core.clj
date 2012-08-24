@@ -2,7 +2,7 @@
 
 (def empty-board [[:_ :_ :_]
                   [:_ :_ :_]
-                  [:_ :_ :_]])   
+                  [:_ :_ :_]])
 
 (defn- next-mover [board]
   (if (> (count (filter #(= :X %) (flatten board)))
