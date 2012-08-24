@@ -21,11 +21,20 @@
       (= 3 (count-in (get board 1) player))
       (= 3 (count-in (get board 2) player))))
 
+(defn- third [coll] (get coll 2))
+
+(defn- vertical-win [board player]
+  (or (= 3 (count-in (map first board) player))
+      (= 3 (count-in (map second board) player))
+      (= 3 (count-in (map third board) player))))
+
 (defn status [board]
   (cond (= 9 (count-in board :_)) :empty
 
         (or (horizontal-win board :X)
-            (horizontal-win board :O)) :win
+            (horizontal-win board :O)
+            (vertical-win board :X)
+            (vertical-win board :O)) :win
 
         (= 0 (count-in board :_)) :draw
 

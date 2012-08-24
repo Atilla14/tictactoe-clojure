@@ -64,3 +64,12 @@
   (is (= :win (status [[:O :O :_]
                        [:_ :_ :_]
                        [:X :X :X]]))))
+
+(deftest test-status-win-vertical
+  (is (= :win (status [[:X :X :O]
+                       [:X :X :O]
+                       [:X :O :O]])))
+
+  (is (= :win (status [[:X :X :X]
+                       [:O :O :_]
+                       [:_ :_ :_]]))))
