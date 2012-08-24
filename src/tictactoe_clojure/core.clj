@@ -1,5 +1,7 @@
 (ns tictactoe-clojure.core)
 
+; Private
+;
 (defn- count-in [coll item]
   (count (filter #(= item %) (flatten coll))))
 
