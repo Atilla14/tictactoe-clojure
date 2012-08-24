@@ -12,3 +12,6 @@
 
 (defn move [board row column]
   (update-in board [row column] (fn [_] (next-mover board))))
+
+(defn status [board]
+  :empty)

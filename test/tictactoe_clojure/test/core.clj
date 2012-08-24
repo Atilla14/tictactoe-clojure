@@ -32,3 +32,6 @@
          [[:X :X :X]
           [:O :O :_]
           [:_ :_ :_]])))
+
+(deftest test-status-empty
+  (is (= :empty (status empty-board))))
