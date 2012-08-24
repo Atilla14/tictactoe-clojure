@@ -1,13 +1,7 @@
 # tictactoe-clojure
 
-A Clojure library designed to ... well, that part is up to you.
+Tic Tac Toe^ in clojure.
 
-## Usage
+Written as an exercise for the tenth London Code Dojo.
 
-FIXME
-
-## License
-
-Copyright © 2012 FIXME
-
-Distributed under the Eclipse Public License, the same as Clojure.
+_^(I'm British, so I call it Noughts & Crosses, but tictactoe makes for a better namespace. Damnable ampersands.)_
