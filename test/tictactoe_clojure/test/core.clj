@@ -2,7 +2,7 @@
   (:use [clojure.test]
         [tictactoe-clojure.core]))
 
-(deftest empty-board-test
+(deftest test-empty-board
   (is (= empty-board
          [[:_ :_ :_]
           [:_ :_ :_]
