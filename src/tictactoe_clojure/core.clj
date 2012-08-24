@@ -19,4 +19,5 @@
 (defn status [board]
   (cond
     (= 9 (count-in board :_)) :empty
+    (= 0 (count-in board :_)) :draw
     :else :ongoing))

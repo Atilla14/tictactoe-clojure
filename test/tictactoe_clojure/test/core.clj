@@ -50,3 +50,8 @@
   (is (= :ongoing (status [[:X :X :_]
                            [:O :O :_]
                            [:X :O :_]]))))
+
+(deftest test-status-draw
+  (is (= :draw (status [[:X :X :O]
+                        [:O :X :X]
+                        [:X :O :O]]))))
