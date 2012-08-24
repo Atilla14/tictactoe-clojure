@@ -60,10 +60,10 @@
   (update-in board [row column] (fn [_] (next-mover board))))
 
 (defn status [board]
-  (cond (count-is 9 :_ board) :empty
-
-        (or (win-for :X board)
+  (cond (or (win-for :X board)
             (win-for :O board)) :win
+
+        (count-is 9 :_ board) :empty
 
         (count-is 0 :_ board) :draw
 
