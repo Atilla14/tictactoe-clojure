@@ -34,6 +34,11 @@
                            (get-in board [1 1])
                            (get-in board [2 0])] player)]))
 
+(defn- win-for [player board]
+  (or (horizontal-win board player)
+      (vertical-win   board player)
+      (diagonal-win   board player)))
+
 ; Public
 
 (def empty-board [[:_ :_ :_]
@@ -46,12 +51,8 @@
 (defn status [board]
   (cond (= 9 (count-in board :_)) :empty
 
-        (or (horizontal-win board :X)
-            (horizontal-win board :O)
-            (vertical-win board :X)
-            (vertical-win board :O)
-            (diagonal-win board :X)
-            (diagonal-win board :O)) :win
+        (or (win-for :X board)
+            (win-for :O board)) :win
 
         (= 0 (count-in board :_)) :draw
 
