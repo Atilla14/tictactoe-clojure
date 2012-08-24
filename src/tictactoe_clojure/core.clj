@@ -2,9 +2,15 @@
 
 ; Private, generic.
 
-(defn- third [coll] (get coll 2))
+(defn- third
+  "Like the built-in convenience functions first & second."
+  [coll] (get coll 2))
 
-(defn- equal-to [x]
+(defn- equal-to
+  "Returns a predicate that checks any argument is equal to x.
+
+   ie. Captures an equality test."
+  [x]
   (fn [y] (= x y)))
 
 (defn- count-in
@@ -21,7 +27,9 @@
 
 ; Private, specific.
 
-(defn- next-mover [board]
+(defn- next-mover
+  "Figures out whose turn it is."
+  [board]
   (if (> (count-in :X board)
          (count-in :O board))
     :O
@@ -56,10 +64,14 @@
                   [:_ :_ :_]
                   [:_ :_ :_]])
 
-(defn move [board row column]
+(defn move
+  "Make the next move at the named position."
+  [board row column]
   (update-in board [row column] (fn [_] (next-mover board))))
 
-(defn status [board]
+(defn status
+  "Returns the state of the game."
+  [board]
   (cond (or (win-for :X board)
             (win-for :O board)) :win
 
