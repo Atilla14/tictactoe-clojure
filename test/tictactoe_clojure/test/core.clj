@@ -33,6 +33,12 @@
           [:O :O :_]
           [:_ :_ :_]])))
 
+(deftest test-no-duplicate-moves
+  (is (thrown-with-msg? AssertionError #"not empty"
+                        (-> empty-board
+                            (move 0 0)
+                            (move 0 0)))))
+
 (deftest test-status-empty
   (is (= :empty (status empty-board))))
 

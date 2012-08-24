@@ -60,7 +60,11 @@
 (defn move
   "Make the next move at the named position."
   [board row column]
-  (update-in board [row column] (fn [_] (next-mover board))))
+  (update-in board
+             [row column]
+             (fn [current]
+               (assert (= :_ current) "Square not empty.")
+               (next-mover board))))
 
 (defn status
   "Returns the state of the game."
