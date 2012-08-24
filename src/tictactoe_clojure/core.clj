@@ -1,9 +1,5 @@
 (ns tictactoe-clojure.core)
 
-(def empty-board [[:_ :_ :_]
-                  [:_ :_ :_]
-                  [:_ :_ :_]])
-
 (defn- count-in [coll item]
   (count (filter #(= item %) (flatten coll))))
 
@@ -13,9 +9,6 @@
     :O
     :X))
 
-(defn move [board row column]
-  (update-in board [row column] (fn [_] (next-mover board))))
-
 (defn- horizontal-win [board player]
   (or (= 3 (count-in (get board 0) player))
       (= 3 (count-in (get board 1) player))
@@ -24,9 +17,18 @@
 (defn- third [coll] (get coll 2))
 
 (defn- vertical-win [board player]
-  (or (= 3 (count-in (map first board) player))
+  (or (= 3 (count-in (map first  board) player))
       (= 3 (count-in (map second board) player))
-      (= 3 (count-in (map third board) player))))
+      (= 3 (count-in (map third  board) player))))
+
+; Public
+
+(def empty-board [[:_ :_ :_]
+                  [:_ :_ :_]
+                  [:_ :_ :_]])
+
+(defn move [board row column]
+  (update-in board [row column] (fn [_] (next-mover board))))
 
 (defn status [board]
   (cond (= 9 (count-in board :_)) :empty
