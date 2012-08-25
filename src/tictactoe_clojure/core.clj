@@ -33,10 +33,14 @@
     :X))
 
 (defn- horizontal-win [player board]
-  (some true? (map (every-item-is? player) board)))
+  (->> board
+       (map (every-item-is? player))
+       (some true?)))
 
 (defn- vertical-win [player board]
-  (some true? (apply map (every-item-is? player) board)))
+  (->> board
+       (apply map (every-item-is? player))
+       (some true?)))
 
 (defn- diagonal-win-left [player board]
   (let [diagonal (map (fn [i _] (get-in board [i i])) (range) board)]
