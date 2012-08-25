@@ -63,31 +63,31 @@
                         [:X :O :O]]))))
 
 (deftest test-status-win-horizontal
-  (is (= :win (status [[:O :O :_]
-                       [:X :X :X]
-                       [:_ :_ :_]])))
+  (is (= :win-x (status [[:O :O :_]
+                         [:X :X :X]
+                         [:_ :_ :_]])))
 
-  (is (= :win (status [[:O :O :_]
-                       [:_ :_ :_]
-                       [:X :X :X]]))))
+  (is (= :win-x (status [[:O :O :_]
+                         [:_ :_ :_]
+                         [:X :X :X]]))))
 
 (deftest test-status-win-vertical
-  (is (= :win (status [[:X :X :O]
-                       [:X :X :O]
-                       [:X :O :O]])))
+  (is (= :win-x (status [[:X :X :O]
+                         [:X :X :O]
+                         [:X :O :O]])))
 
-  (is (= :win (status [[:X :X :X]
-                       [:O :O :_]
-                       [:_ :_ :_]]))))
+  (is (= :win-x (status [[:X :X :X]
+                         [:O :O :_]
+                         [:_ :_ :_]]))))
 
 (deftest test-status-win-diagonal
-  (is (= :win (status [[:X :O :_]
-                       [:_ :X :O]
-                       [:_ :_ :X]])))
+  (is (= :win-x (status [[:X :O :_]
+                         [:_ :X :O]
+                         [:_ :_ :X]])))
 
-  (is (= :win (status [[:X :_ :O]
-                       [:_ :O :X]
-                       [:O :X :_]]))))
+  (is (= :win-o (status [[:X :_ :O]
+                         [:_ :O :X]
+                         [:O :X :_]]))))
 
 (deftest test-status-win-diagonal
   (is (= :ongoing (status [[:X :O :_]
@@ -95,22 +95,22 @@
                            [:_ :_ :_]]))))
 
 (deftest test-status-win-4-horizontal
-  (is (= :win (status [[:O :O :_ :_]
-                       [:_ :O :_ :O]
-                       [:X :X :X :X]
-                       [:_ :_ :_ :X]]))))
+  (is (= :win-x (status [[:O :O :_ :_]
+                         [:_ :O :_ :O]
+                         [:X :X :X :X]
+                         [:_ :_ :_ :X]]))))
 
 (deftest test-status-win-4-vertical
-  (is (= :win (status [[:O :O :X :_]
-                       [:_ :O :X :O]
-                       [:X :O :X :X]
-                       [:_ :O :_ :X]]))))
+  (is (= :win-o (status [[:O :O :X :_]
+                         [:_ :O :X :O]
+                         [:X :O :X :X]
+                         [:_ :O :_ :X]]))))
 
 (deftest test-status-win-4-diagonal
-  (is (= :win (status [[:O :O :X :O]
-                       [:_ :O :O :_]
-                       [:X :O :X :X]
-                       [:O :X :X :X]]))))
+  (is (= :win-o (status [[:O :O :X :O]
+                         [:_ :O :O :_]
+                         [:X :O :X :X]
+                         [:O :X :X :X]]))))
 
 (deftest test-status-no-win-3-out-of-4-diagonal
   (is (= :ongoing (status [[:O :O :_ :_]

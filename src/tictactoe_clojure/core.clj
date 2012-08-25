@@ -69,8 +69,8 @@
 (defn status
   "Returns the state of the game."
   [board]
-  (cond (or (win-for :X board)
-            (win-for :O board)) :win
+  (cond (win-for :X board) :win-x
+        (win-for :O board) :win-o
 
         (empty? (remove (equal-to :_) (flatten board))) :empty
 
