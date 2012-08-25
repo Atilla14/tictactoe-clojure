@@ -2,10 +2,6 @@
 
 ; Private, generic.
 
-(defn- third
-  "Like the built-in convenience functions first & second."
-  [coll] (get coll 2))
-
 (defn- count-in
   "Counts the occurances of item in a collection. Includes any nested occurances."
   [item coll]
@@ -28,23 +24,29 @@
     :O
     :X))
 
+(defn equal-to [item]
+  (fn [x] (= x item)))
+
 (defn- horizontal-win [board player]
-  (or (count-is 3 player (first  board))
-      (count-is 3 player (second board))
-      (count-is 3 player (third  board))))
+  (let [is-match #(= % player)]
+    (some true? (map #(every? is-match %) board))))
 
 (defn- vertical-win [board player]
-  (or (count-is 3 player (map first  board))
-      (count-is 3 player (map second board))
-      (count-is 3 player (map third  board))))
+  (let [is-match #(= % player)]
+    (some true? (apply map (fn [& args] (every? is-match args)) board))))
+
+(defn diagonal-win-left [board player]
+  (let [is-match #(= % player)]
+    (every? is-match (map (fn [_ i] (get-in board [i i])) board (iterate inc 0)))))
+
+
+(defn- diagonal-win-right [board player]
+  (diagonal-win-left (vec (reverse board))
+                     player))
 
 (defn- diagonal-win [board player]
-  (or (count-is 3 player [(get-in board [0 0])
-                          (get-in board [1 1])
-                          (get-in board [2 2])])
-      (count-is 3 player [(get-in board [0 2])
-                          (get-in board [1 1])
-                          (get-in board [2 0])])))
+  (or (diagonal-win-left  board player)
+      (diagonal-win-right board player)))
 
 (defn- win-for [player board]
   (or (horizontal-win board player)
@@ -72,7 +74,7 @@
   (cond (or (win-for :X board)
             (win-for :O board)) :win
 
-        (count-is 9 :_ board) :empty
+        (empty? (remove #(= :_ %) (flatten board))) :empty
 
         (count-is 0 :_ board) :draw
 
