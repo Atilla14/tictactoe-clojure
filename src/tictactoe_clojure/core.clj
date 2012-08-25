@@ -2,17 +2,25 @@
 
 ; Private, generic.
 
+(defn- equal-to [item]
+  (fn [x] (= item x)))
+
 (defn- count-in
   "Counts the occurances of item in a collection. Includes any nested occurances."
   [item coll]
   (->> coll
        flatten
-       (filter #(= item %))
+       (filter (equal-to item))
        count))
 
-(defn- count-is [value item coll]
-  (= value
-     (count-in item coll)))
+(defn- every-item-is?
+  "Returns a predicate that returns true if every item passes to is matches item.
+
+   The predicate may be called with a single collection, or a number of items."
+  [item]
+  (fn
+    ([coll]     (every? (equal-to item) coll))
+    ([x & args] (every? (equal-to item) (cons x args)))))
 
 ; Private, specific.
 
@@ -24,34 +32,24 @@
     :O
     :X))
 
-(defn equal-to [item]
-  (fn [x] (= x item)))
+(defn- horizontal-win [player board]
+  (some true? (map (every-item-is? player) board)))
 
-(defn- horizontal-win [board player]
-  (let [is-match #(= % player)]
-    (some true? (map #(every? is-match %) board))))
+(defn- vertical-win [player board]
+  (some true? (apply map (every-item-is? player) board)))
 
-(defn- vertical-win [board player]
-  (let [is-match #(= % player)]
-    (some true? (apply map (fn [& args] (every? is-match args)) board))))
+(defn- diagonal-win-left [player board]
+  (let [diagonal (map (fn [i _] (get-in board [i i])) (range) board)]
+    ((every-item-is? player) diagonal)))
 
-(defn diagonal-win-left [board player]
-  (let [is-match #(= % player)]
-    (every? is-match (map (fn [_ i] (get-in board [i i])) board (iterate inc 0)))))
-
-
-(defn- diagonal-win-right [board player]
-  (diagonal-win-left (vec (reverse board))
-                     player))
-
-(defn- diagonal-win [board player]
-  (or (diagonal-win-left  board player)
-      (diagonal-win-right board player)))
+(defn- diagonal-win-right [player board]
+  (diagonal-win-left player (vec (reverse board))))
 
 (defn- win-for [player board]
-  (or (horizontal-win board player)
-      (vertical-win   board player)
-      (diagonal-win   board player)))
+  (or (horizontal-win     player board)
+      (vertical-win       player board)
+      (diagonal-win-left  player board)
+      (diagonal-win-right player board)))
 
 ; Public
 
@@ -74,8 +72,8 @@
   (cond (or (win-for :X board)
             (win-for :O board)) :win
 
-        (empty? (remove #(= :_ %) (flatten board))) :empty
+        (empty? (remove (equal-to :_) (flatten board))) :empty
 
-        (count-is 0 :_ board) :draw
+        (zero? (count-in :_ board)) :draw
 
         :else :ongoing))
