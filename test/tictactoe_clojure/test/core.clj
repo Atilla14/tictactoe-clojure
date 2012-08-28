@@ -117,3 +117,8 @@
                            [:_ :O :O :_]
                            [:X :O :X :X]
                            [:O :X :X :X]]))))
+
+(deftest test-invalid-board-bad-movers
+  (is (not (valid-board [[:_ :O :_]
+                         [:D :X :_]
+                         [:_ :X :_]]))))

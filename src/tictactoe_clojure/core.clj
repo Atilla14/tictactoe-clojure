@@ -84,3 +84,6 @@
         (full-board?  board) :draw
 
         :else :ongoing))
+
+(defn valid-board [board]
+  (every? #{:_ :X :O} (set (flatten board))))
