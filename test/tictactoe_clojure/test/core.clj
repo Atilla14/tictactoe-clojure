@@ -138,3 +138,9 @@
   (is (not (valid-board [[:_ :O :_]
                          [:O :_ :_]
                          [:_ :X :_]]))))
+
+(deftest test-status-requires-valid-board
+  (is (thrown-with-msg? AssertionError #"valid-board"
+                        (status [[:_ :O :_]
+                                 [:O :_ :O]
+                                 [:_ :X :_]]))))

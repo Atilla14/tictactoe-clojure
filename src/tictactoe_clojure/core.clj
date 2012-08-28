@@ -78,6 +78,9 @@
 (defn status
   "Returns the state of the game."
   [board]
+
+  {:pre ((valid-board board))}
+
   (cond (win-for? :X board) :win-x
 
         (win-for? :O board) :win-o
