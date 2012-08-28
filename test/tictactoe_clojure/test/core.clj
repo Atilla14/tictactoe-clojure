@@ -127,3 +127,14 @@
   (is (not (valid-board [[:_ :O]
                          [:X]
                          [:_ :X :_]]))))
+
+(deftest test-invalid-bad-mover-count
+  (is (not (valid-board [[:_ :O :_]
+                         [:X :_ :X]
+                         [:_ :X :_]])))
+  (is (not (valid-board [[:_ :O :_]
+                         [:O :_ :O]
+                         [:_ :X :_]])))
+  (is (not (valid-board [[:_ :O :_]
+                         [:O :_ :_]
+                         [:_ :X :_]]))))

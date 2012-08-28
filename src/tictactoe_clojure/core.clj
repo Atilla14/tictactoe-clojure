@@ -90,4 +90,10 @@
 
 (defn valid-board [board]
   (and (every? #{:_ :X :O} (set (flatten board)))
-       (nested-array-is-square board)))
+       (nested-array-is-square board)
+       (let [
+             x-count (count (select-all :X board))
+             o-count (count (select-all :O board))
+             ]
+         (or (= x-count o-count)
+             (= x-count (inc o-count))))))
