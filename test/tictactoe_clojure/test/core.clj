@@ -139,6 +139,12 @@
                          [:O :_ :_]
                          [:_ :X :_]]))))
 
+(deftest test-move-requires-valid-board
+  (is (thrown-with-msg? AssertionError #"valid-board"
+                        (move [[:_ :O :_]
+                               [:O :_]
+                               [:_ :X :_]] 5 9))))
+
 (deftest test-status-requires-valid-board
   (is (thrown-with-msg? AssertionError #"valid-board"
                         (status [[:_ :O :_]

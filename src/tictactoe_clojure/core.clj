@@ -66,9 +66,20 @@
                   [:_ :_ :_]
                   [:_ :_ :_]])
 
+(defn valid-board [board]
+  (and (every? #{:_ :X :O} (set (flatten board)))
+       (nested-array-is-square board)
+       (let [x-count (count (select-all :X board))
+             o-count (count (select-all :O board))]
+         (or (= x-count o-count)
+             (= x-count (inc o-count))))))
+
 (defn move
   "Make the next move at the named position."
   [board row column]
+
+  {:pre ((valid-board board))}
+
   (update-in board
              [row column]
              (fn [current]
@@ -90,11 +101,3 @@
         (full-board?  board) :draw
 
         :else :ongoing))
-
-(defn valid-board [board]
-  (and (every? #{:_ :X :O} (set (flatten board)))
-       (nested-array-is-square board)
-       (let [x-count (count (select-all :X board))
-             o-count (count (select-all :O board))]
-         (or (= x-count o-count)
-             (= x-count (inc o-count))))))
