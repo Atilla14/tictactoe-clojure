@@ -21,6 +21,9 @@
   [grid]
   (apply map list grid))
 
+(defn- nested-array-is-square [coll]
+  (apply = (count coll) (map count coll)))
+
 ; Private, specific.
 
 (defn- next-mover
@@ -86,4 +89,5 @@
         :else :ongoing))
 
 (defn valid-board [board]
-  (every? #{:_ :X :O} (set (flatten board))))
+  (and (every? #{:_ :X :O} (set (flatten board)))
+       (nested-array-is-square board)))

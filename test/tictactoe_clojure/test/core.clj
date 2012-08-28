@@ -122,3 +122,8 @@
   (is (not (valid-board [[:_ :O :_]
                          [:D :X :_]
                          [:_ :X :_]]))))
+
+(deftest test-invalid-board-not-square
+  (is (not (valid-board [[:_ :O]
+                         [:X]
+                         [:_ :X :_]]))))
